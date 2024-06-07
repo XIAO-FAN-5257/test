@@ -10,21 +10,27 @@ struct LargeObject {
   int* p;
 
   LargeObject() {
-    p = nullptr;
+    p = (int*)malloc (sizeof(int) * 10);
     printf("Construct\n");
-    //std::cout << "Construct" << std::endl;
   }
 
   ~LargeObject() {
-
+    free(p);
+    printf("Destruct\n");
   }
 };
 
-const LargeObject kLargeObject;
-const std::string kStr = "string";
+const LargeObject kLargeObject = LargeObject();
 const int MAX = 10;
 
+//variable kStr is not a constant and hence has external linkage
+const std::string kStr = "string";
+// const char* kStr = "string";
+//const char* const kStr = "string";
+
+// or
 // extern const LargeObject kLargeObject ;
 // extern const char* kStr;
+// extern const int MAX;
 
 // #endif
